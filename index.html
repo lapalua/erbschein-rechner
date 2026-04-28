@@ -1,58 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feiertagszuschlagsrechner</title>
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erbschein Kosten Rechner</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="app-wrapper">
-    <div class="calculator-container">
+    <div class="app-wrapper">
+        <div class="calculator-container">
+            <h1>Erbschein Kosten Rechner</h1>
+            <p class="subtitle">Berechnen Sie die voraussichtlichen Gerichtskosten für einen Erbschein</p>
 
-      <h1 id="main-title">Feiertagszuschlagsrechner</h1>
-      <p class="subtitle" id="subtitle">Berechnen Sie Ihren Lohn mit Feiertagszuschlag</p>
+            <div class="form-group">
+                <label for="nachlasswert">Nachlasswert (Brutto-Nachlass in €)</label>
+                <input type="number" id="nachlasswert" placeholder="z. B. 150000" min="0" step="100">
+            </div>
 
-      <form id="calculator-form">
+            <div class="form-group">
+                <label for="schulden">Abzüglich Nachlassverbindlichkeiten / Schulden (€)</label>
+                <input type="number" id="schulden" placeholder="z. B. 20000" min="0" step="100">
+            </div>
 
-        <div class="form-group">
-          <label for="hourly-wage">Brutto-Stundenlohn (€)</label>
-          <input type="number" id="hourly-wage" min="0" step="0.01" required>
+            <div class="form-group">
+                <label>Besonderheiten (optional)</label>
+                <div class="checkbox-wrapper">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="gemeinschaftlich" />
+                        <label for="gemeinschaftlich">Gemeinschaftlicher Erbschein (mehrere Erben)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="eidesstattlich" />
+                        <label for="eidesstattlich">Eidesstattliche Versicherung erforderlich</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="notarkosten" />
+                        <label for="notarkosten">Notarielle Beglaubigung / Beantragung über Notar</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-message" class="error-message">
+                Bitte geben Sie einen gültigen Nachlasswert ein (mindestens 0 €).
+            </div>
+
+            <div class="button-group">
+                <button class="btn-calculate" onclick="berechnen()">Kosten berechnen</button>
+                <button class="btn-reset" onclick="zuruecksetzen()">Zurücksetzen</button>
+            </div>
+
+            <div id="result-section" class="result-section">
+                <div class="result-item">
+                    <div class="result-label">Reiner Nachlasswert (Berechnungsgrundlage)</div>
+                    <div class="result-value" id="result-nachlasswert">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Gerichtsgebühr (GNotKG)</div>
+                    <div class="result-value" id="result-gerichtsgebuehr">—</div>
+                </div>
+                <div id="result-eid-wrapper" class="result-item" style="display:none">
+                    <div class="result-label">Gebühr für eidesstattliche Versicherung</div>
+                    <div class="result-value" id="result-eid">—</div>
+                </div>
+                <div id="result-notar-wrapper" class="result-item" style="display:none">
+                    <div class="result-label">Zusätzliche Notargebühr (ca.)</div>
+                    <div class="result-value" id="result-notar">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Gesamtkosten (ca.)</div>
+                    <div class="result-value" id="result-gesamt">—</div>
+                </div>
+                <div class="info-box" id="result-info"></div>
+            </div>
         </div>
-
-        <div class="form-group">
-          <label for="holiday-percentage">Prozentsatz Feiertagszuschlag (%)</label>
-          <input type="number" id="holiday-percentage" min="0" step="0.1" required>
-        </div>
-
-        <div class="form-group">
-          <label for="holiday-hours">Stundenanzahl der Feiertagsschicht</label>
-          <input type="number" id="holiday-hours" min="0" step="0.5" required>
-        </div>
-
-        <div class="button-group">
-          <button type="submit" class="btn-calculate" id="calculate-btn">Berechnen</button>
-          <button type="button" class="btn-reset" id="reset-btn">Zurücksetzen</button>
-        </div>
-
-      </form>
-
-      <div class="error-message" id="error-message"></div>
-
-      <div class="result-section" id="result-section">
-        <div class="result-item">
-          <div class="result-label">
-            Lohn inklusive Feiertagszuschlag, brutto
-          </div>
-          <div class="result-value" id="final-amount"></div>
-        </div>
-      </div>
-
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
